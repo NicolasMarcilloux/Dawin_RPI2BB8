@@ -3,8 +3,10 @@
   "description": "Node server to recieve instructions from mind-reader helmet and send them to bb8",
   "version": "1.0.0",
   "dependencies": {
+    "http": "0.0.0",
     "noble": "^1.9.1",
-    "sphero": "^0.9.2"
+    "sphero": "^0.9.2",
+    "websocket": "1.0.26"
   },
   "scripts": {},
   "devDependencies": {}
