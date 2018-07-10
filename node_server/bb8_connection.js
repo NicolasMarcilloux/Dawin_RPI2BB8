@@ -31,18 +31,20 @@ function bb8Action(action){
       break;
 
     case "Color":
-
       break;
 
-    case "Setup":
-
+    case "SetupOn":
+      bb8.startCalibration();
       break;
 
+    case "SetupOf":
+      bb8.finishCalibration();
+      break;
   }
 
 }
 
 bb8.connect(function(){
   bb8.detectCollisions();
-  bb8Action("MoveDown");
+  bb8Action("SetupOn");
 })
