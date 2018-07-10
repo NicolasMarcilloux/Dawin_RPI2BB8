@@ -7,21 +7,27 @@ function bb8Action(action){
 
   switch (action) {
     case "MoveUp":
-    setInterval(function() {
-      bb8.roll(150, 0);
-    }, 1000);
+      setInterval(function() {
+        bb8.roll(150, 0);
+      }, 1000);
       break;
 
     case "MoveDown":
-
+      setInterval(function() {
+        bb8.roll(150, 180);
+      }, 1000);
       break;
 
     case "MoveRight":
-
-      break;
+      setInterval(function() {
+        bb8.roll(150, 90);
+      }, 1000);
+        break;
 
     case "MoveLeft":
-
+      setInterval(function() {
+        bb8.roll(150, 270);
+      }, 1000);
       break;
 
     case "Color":
@@ -38,5 +44,5 @@ function bb8Action(action){
 
 bb8.connect(function(){
   bb8.detectCollisions();
-  bb8Action("MoveUp");
+  bb8Action("MoveDown");
 })
