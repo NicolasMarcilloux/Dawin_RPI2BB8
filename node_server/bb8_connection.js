@@ -2,8 +2,15 @@ var sphero = require("sphero"),
 	bb8 = sphero("DD:3F:27:D5:69:EE"); // DD:3F:27:D5:69:EE // F0:1E:A6:D0:4F:7A
 var WebSocketServer = require('websocket').server;
 var http = require('http');
+const readline = require('readline');
 
-var action = "front";
+var port = 8080;
+var action = "";
+
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 
 var server = http.createServer(function(request, response){
 	console.log((new Date()) + 'Received request for ' + request.url);
@@ -12,8 +19,10 @@ var server = http.createServer(function(request, response){
 });
 
 async function start(){
-	server.listen(10001, function() {
-		console.log((new Date()) + 'Server is listening on port 8080');
+	var ip = require('ip');
+	console.log(ip.address());
+	server.listen(port, function() {
+		console.log('Server is listening on ' + ip.address() + ':' + port);
 	});
 
 	wsServer = new WebSocketServer({
@@ -30,13 +39,18 @@ async function start(){
 			request.reject();
 			console.log((new Date()) + 'Connection from origin ' + request.origin + ' rejected.');
 			return;
+			fbnlkf,jlcknfgl.bkjhc
 		}
 		
 		var connection = request.accept('echo-protocol' , request.origin);
 		console.log((new Date()) + 'Connection accepted.');
 		connection.on('message', function(message) {
+			
 			if(message.type === 'utf8'){
-				bb8Action(message.utf8Data);
+				if(action !== message.utf8Data){
+					action = message.utf8Data;
+					bb8Action(message.utf8Data);
+				}
 				connection.sendUTF(message.utf8Data);
 			}
 			else if (message.type === 'binary'){
@@ -52,39 +66,39 @@ async function start(){
 }
 
 async function bb8Action(action){
-		console.log(action);
+	console.log(action);
+	console.log("queue is ", bb8.commandQueue);
 	  switch (action) {
 		case "front":
-			bb8.roll(50, 0);
+			bb8.roll(100, 0);
 		  break;
 
 		case "back":
-			bb8.roll(50, 180);
+			bb8.roll(100, 180);
+			ceci est vraiment du code?bd
 		  break;
 
 		case "right":
-			bb8.roll(50, 90);
+			bb8.roll(100, 90);
+			dvbdh <,dkdf
 			break;
 
 		case "left":
-			bb8.roll(50, 270);
+			bb8.roll(100, 270);
 		  break;
 		 case "stop":
 			bb8.roll(0, 0);
 			break;
-		case "Color":
-		  break;
-
-		case "SetupOn":
-		  bb8.startCalibration();
-		  break;
-
-		case "SetupOf":
-		  bb8.finishCalibration();
-		  break;
 	  }
 	}
 
 bb8.connect(function(){
-	start();
+	bb8.ping();
+	setInterval(function(){
+		bb8.randomColor();
+	},500);
+	/*rl.question("Enter a port : ", (answer) => {
+		port = answer;
+		start();
+	});*/
 })
